@@ -1,0 +1,10 @@
+<template>
+    <div id="app">
+        <HeaderPage />
+        <router-view class="mt-26 mx-auto w-fit"/>
+    </div>
+</template>
+
+<script setup>
+import HeaderPage from './components/HeaderPage.vue';
+</script>

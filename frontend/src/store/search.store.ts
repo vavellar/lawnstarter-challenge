@@ -9,7 +9,7 @@ export const useSearchStore = defineStore("search", () => {
     const movies = ref([]);
     const movieDetails = ref(null)
     const searchType = ref("people");
-    const performSearch = async (searchTerm) => {
+    const performSearch = async (searchTerm: string) => {
         if (!searchTerm.trim()) {
             results.value = [];
             return;
@@ -34,9 +34,6 @@ export const useSearchStore = defineStore("search", () => {
         }
     };
 
-    const setItem = (item) => {
-        selectedResult.value = item;
-    }
 
     const clearResults = () => {
         results.value = [];
@@ -44,21 +41,6 @@ export const useSearchStore = defineStore("search", () => {
     };
 
 
-    const fetchMovieTitles = async (filmUrls) => {
-        try {
-            const promises = filmUrls.map((url) => axios.get(url));
-            const responses = await Promise.all(promises);
-            movies.value = responses.map((response) => {
-                return {
-                    title: response.data.title,
-                    id: response.data.url.split('/').filter(Boolean).pop()
-                }
-            });
-        } catch (error) {
-            console.error("Error fetching movie titles:", error);
-            movieTitles.value = [];
-        }
-    };
 
     const fetchMovieDetails = async (id) => {
         try {
@@ -70,22 +52,16 @@ export const useSearchStore = defineStore("search", () => {
         }
     };
 
-    const setSearchType = (type) => {
-        searchType.value = type;
-    }
-
+  
     return {
         movies,
-        fetchMovieTitles,
         results,
         movieDetails,
         searchType,
-        setSearchType,
         fetchMovieDetails,
         loading,
         selectedResult,
         performSearch,
-        setItem,
         clearResults,
     };
 });
