@@ -4,16 +4,16 @@ from typing import Optional, Dict, Any
 
 http_service = HttpService(BASE_URL, DEFAULT_TIMEOUT)
 
-endpoint = "/people/"
+endpoint = "/films/"
 
-async def search_person(query: str) -> Optional[Dict[str, Any]]:
+async def search_movie(query: str) -> Optional[Dict[str, Any]]:
     response = await http_service.get(f"{endpoint}?search={query}")
     if response and response.get("results"):
         return response
     return {"error": "No results found"}
 
-async def search_people_by_id(person_id: int) -> Optional[Dict[str, Any]]:
-    response = await http_service.get(f"{endpoint}{person_id}/")
+async def get_movie_by_id(movie_id: int) -> Optional[Dict[str, Any]]:
+    response = await http_service.get(f"{endpoint}{movie_id}/")
     if response:
         return response
     return None
