@@ -14,7 +14,6 @@ async def stats_worker() -> None:
             if getattr(ev, "event_type", None) == EventType.QUERY_RECORDED:
                 assert isinstance(ev, QueryRecordedEvent)
                 await store.add_query(ev)
-                await store.recompute()
             elif getattr(ev, "event_type", None) == EventType.RECOMPUTE_STATS:
                 assert isinstance(ev, RecomputeStatsEvent)
                 await store.recompute()
