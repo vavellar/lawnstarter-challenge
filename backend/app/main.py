@@ -7,7 +7,7 @@ from app.routers.stats import router as stats_router
 from app.stats.worker import stats_worker
 from app.stats.scheduler import stats_scheduler
 
-app = FastAPI(title="People")
+app = FastAPI(title="Lawnstarter Challenge API docs", description="This is a sample API for the Lawnstarter coding challenge.", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
