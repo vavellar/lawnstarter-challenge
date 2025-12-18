@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { moviesService } from "../services/movies.service";
 import { peopleService } from "../services/people.service";
 
@@ -10,6 +10,10 @@ export const useSearchStore = defineStore("search", () => {
     const movies = ref([]);
     const movieDetails = ref(null)
     const searchType = ref("people");
+
+    watch(() => searchType.value, () => {
+        results.value = [];
+    })
 
     const performSearch = async (searchTerm: string) => {
         loading.value = true;

@@ -43,7 +43,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import {useSearchStore} from "../../store/search.store";
 
 const searchTerm = ref("");
@@ -55,6 +55,10 @@ const placeholderText = computed(() => {
 });
 
 const searchStore = useSearchStore();
+
+watch(() => searchStore.searchType, () => {
+  searchTerm.value = "";
+})
 
 const onSearch = () => {
   if (searchTerm.value.trim() === "") {
