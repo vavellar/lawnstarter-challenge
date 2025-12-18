@@ -64,38 +64,38 @@ npm run dev
 
 ### Movies
 
-**GET /movies**  
+**GET /api/movies**  
 Search movies by term.
 ```bash
-curl "http://localhost:8000/movies?search=empire"
+curl "http://localhost:8000/api/movies?search=empire"
 ```
 
-**GET /movies/details/{movie_id}**  
+**GET /api/movies/details/{movie_id}**  
 Get movie details with characters.
 ```bash
-curl "http://localhost:8000/movies/details/1"
+curl "http://localhost:8000/api/movies/details/1"
 ```
 
 ### People
 
-**GET /people**  
+**GET /api/people**  
 Search characters by term.
 ```bash
-curl "http://localhost:8000/people?search=luke"
+curl "http://localhost:8000/api/people?search=luke"
 ```
 
-**GET /people/details/{person_id}**  
+**GET /api/people/details/{person_id}**  
 Get character details with movies.
 ```bash
-curl "http://localhost:8000/people/details/1"
+curl "http://localhost:8000/api/people/details/1"
 ```
 
 ### Statistics
 
-**GET /stats**  
+**GET /api/stats**  
 Returns query statistics.
 ```bash
-curl "http://localhost:8000/stats"
+curl "http://localhost:8000/api/stats"
 ```
 
 Response includes:
@@ -126,22 +126,17 @@ The system uses an event-driven architecture with asynchronous queue processing:
 
 Make test queries:
 ```bash
-curl "http://localhost:8000/movies?search=star"
-curl "http://localhost:8000/people?search=luke"
-curl "http://localhost:8000/stats"
+curl "http://localhost:8000/api/movies?search=star"
+curl "http://localhost:8000/api/people?search=luke"
+curl "http://localhost:8000/api/stats"
 ```
 
 To test faster recomputation, change `interval_seconds` from 300 to 10 in `app/stats/scheduler.py`.
 
 ## Configuration
 
-**Backend Environment Variables:**
-- `SWAPI_BASE_URL`: SWAPI base URL (default: https://swapi.py4e.com/api)
-- `SWAPI_TIMEOUT`: HTTP client timeout in seconds (default: 10)
-- `STATS_INTERVAL`: Recomputation interval in seconds (default: 300)
-
 **Frontend Environment Variables:**
-- `VITE_API_BASE_URL`: Backend API URL (default: http://localhost:8000)
+- `VITE_API_BASE_URL`: Backend API URL (default: http://localhost:8000/api)
 
 ## License
 
