@@ -41,8 +41,8 @@
 
 <script setup>
 
-import {useSearchStore} from "../store/search.store";
-import {computed, onMounted, ref} from "vue";
+import {useSearchStore} from "../../store/search.store";
+import {computed, onMounted} from "vue";
 import {useRouter, useRoute} from "vue-router";
 
 const searchStore = useSearchStore();

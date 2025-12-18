@@ -37,7 +37,7 @@
 
 <script setup>
 
-import {useSearchStore} from "../store/search.store";
+import {useSearchStore} from "../../store/search.store";
 import { computed, onMounted, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 
