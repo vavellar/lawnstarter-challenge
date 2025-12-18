@@ -2,7 +2,10 @@ from fastapi import APIRouter, HTTPException, Query
 from app.services.people import search_person, search_people_by_id
 from app.services.movies import get_movie_by_id
 from app.helpers.extract_id import extract_id
+from app.events.queue import publish_event
+from app.events.types import QueryRecordedEvent
 import asyncio
+import time
 
 router = APIRouter()
 @router.get("/people/details/{person_id}")
@@ -33,8 +36,10 @@ async def fetch_person_details(person_id: int):
 
 @router.get("/people")
 async def fetch_people(search: str = Query(..., description="Search term for people")):
-  
+    start = time.perf_counter()
     results = await search_person(search)
+    duration_ms = (time.perf_counter() - start) * 1000.0
+    await publish_event(QueryRecordedEvent.new(query=search, kind="people", duration_ms=duration_ms))
     if not results:
         raise HTTPException(status_code=404, detail="No results found for the provided search term.")
     return results
