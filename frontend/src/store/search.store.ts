@@ -10,9 +10,10 @@ export const useSearchStore = defineStore("search", () => {
     const movies = ref([]);
     const movieDetails = ref(null)
     const searchType = ref("people");
+    const error = ref(false)
 
     watch(() => searchType.value, () => {
-        results.value = [];
+        clearResults()
     })
 
     const performSearch = async (searchTerm: string) => {
@@ -20,7 +21,6 @@ export const useSearchStore = defineStore("search", () => {
         try {
             if (searchType.value === "movies") {
                 const data = await moviesService.fetchAllMovies(searchTerm);
-                console.log(data);
                 results.value = data.results || [];
             } else {
                 const data = await peopleService.fetchAllPeople(searchTerm);
@@ -40,14 +40,18 @@ export const useSearchStore = defineStore("search", () => {
         loading.value = false;
     };
 
+    const resetError = () => {
+        error.value = false;
+    }
+
 
     const fetchMovieDetails = async (id: number) => {
         loading.value = true
         try {
             movieDetails.value  = await moviesService.fetchMovieById(id);
-        } catch (error) {
-            console.error("Error fetching movie details:", error);
+        } catch (e) {
             movieDetails.value = null;
+            error.value = true
         } finally {
             loading.value = false;
         }
@@ -57,9 +61,9 @@ export const useSearchStore = defineStore("search", () => {
         loading.value = true;
         try {
             personDetails.value  = await peopleService.fetchPersonById(id);
-        } catch (error) {
-            console.error("Error fetching person details:", error);
+        } catch (e) {
             personDetails.value = null;
+            error.value = true
         } finally {
             loading.value = false;
         }
@@ -68,12 +72,14 @@ export const useSearchStore = defineStore("search", () => {
     return {
         movies,
         results,
+        error,
         movieDetails,
         searchType,
         fetchMovieDetails,
         fetchPersonDetails,
         loading,
         personDetails,
+        resetError,
         performSearch,
         clearResults,
     };

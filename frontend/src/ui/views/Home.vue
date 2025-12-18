@@ -7,4 +7,13 @@
 <script setup lang="ts">
 import SearchCard from "../components/SearchCard.vue";
 import Results from "../components/Results.vue";
+import { onMounted } from "vue";
+import { useSearchStore } from "../../store/search.store";
+
+const searchStore = useSearchStore();
+
+onMounted(() => {
+  searchStore.resetError()
+});
+
 </script>

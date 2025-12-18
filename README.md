@@ -42,24 +42,6 @@ Access:
 - Backend API: http://localhost:8000
 - API Docs: http://localhost:8000/docs
 
-### Local Development
-
-**Backend:**
-```bash
-cd backend
-python -m venv env
-source env/bin/activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-```
-
-**Frontend:**
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
 ## API Endpoints
 
 ### Movies

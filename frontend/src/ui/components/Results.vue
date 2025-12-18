@@ -1,5 +1,5 @@
 <template>
-  <div class="border border-gray-300 p-4 w-150 mx-auto bg-white rounded-md">
+  <div class="border border-gray-300 p-4 w-150 mx-auto bg-white rounded-md border border-gray-300 ">
     <h2 class="text-xl font-bold mb-2">Results</h2>
     <hr class="border-gray-300 mb-4" />
     <div 

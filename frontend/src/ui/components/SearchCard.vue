@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 w-100 h-fit bg-white rounded-md">
+  <div class="p-4 w-100 h-fit bg-white rounded-md shadow-md border border-gray-300 mx-auto">
     <h2 class="text-xl font-bold mb-4">What are you searching for?</h2>
     <div class="flex items-center space-x-4 mb-4">
       <label class="flex items-center space-x-2">
@@ -45,8 +45,12 @@
 <script setup>
 import { ref, computed, watch } from "vue";
 import {useSearchStore} from "../../store/search.store";
+const searchStore = useSearchStore();
 
 const searchTerm = ref("");
+watch(() => searchStore.searchType, () => {
+  searchTerm.value = "";
+})
 
 const placeholderText = computed(() => {
   return searchStore.searchType === "people"
@@ -54,11 +58,6 @@ const placeholderText = computed(() => {
       : "e.g. Star Wars, The Empire Strikes Back";
 });
 
-const searchStore = useSearchStore();
-
-watch(() => searchStore.searchType, () => {
-  searchTerm.value = "";
-})
 
 const onSearch = () => {
   if (searchTerm.value.trim() === "") {
