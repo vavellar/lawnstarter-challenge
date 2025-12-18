@@ -1,5 +1,5 @@
 <template>
-  <div class="border border-red-500 p-4 w-100 h-fit bg-white rounded-md">
+  <div class="p-4 w-100 h-fit bg-white rounded-md">
     <h2 class="text-xl font-bold mb-4">What are you searching for?</h2>
     <div class="flex items-center space-x-4 mb-4">
       <label class="flex items-center space-x-2">
@@ -32,10 +32,10 @@
       />
     </div>
     <button
-        :disabled="!searchTerm"
+        :disabled="!searchTerm.trim()"
         @click="onSearch"
         class="text-gray-700 py-2 px-4 rounded-xl w-full font-bold"
-        :class="{ 'cursor-not-allowed opacity-50 bg-gray-300': !searchTerm, 'bg-[#0ab463] hover:cursor-pointer text-white': searchTerm }"
+        :class="{ 'cursor-not-allowed opacity-50 bg-gray-300': !searchTerm.trim(), 'bg-[#0ab463] hover:cursor-pointer text-white': searchTerm.trim() }"
     >
       {{ searchStore.loading ? "SEARCHING..." : "SEARCH" }}
     </button>
@@ -44,7 +44,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import {useSearchStore} from "../store/search.store";
+import {useSearchStore} from "../../store/search.store";
 
 const searchTerm = ref("");
 

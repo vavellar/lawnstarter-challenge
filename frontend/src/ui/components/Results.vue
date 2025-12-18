@@ -2,7 +2,10 @@
   <div class="border border-gray-300 p-4 w-150 mx-auto bg-white rounded-md">
     <h2 class="text-xl font-bold mb-2">Results</h2>
     <hr class="border-gray-300 mb-4" />
-    <div class="text-center text-gray-500 h-100 flex flex-col justify-center">
+    <div 
+      class="text-center text-gray-500 h-fit min-h-100 flex flex-col"
+      :class="{ 'justify-center': searchStore.loading || (!searchStore.loading && searchStore.results.length === 0), 'justify-start': !searchStore.loading && searchStore.results.length > 0 }"
+    >
       <p v-if="searchStore.loading">Searching...</p>
       <div v-else-if="!searchStore.loading && searchStore.results.length === 0">
          <p>There are zero matches.</p>
@@ -30,19 +33,17 @@
 </template>
 
 <script setup>
-
-import {useSearchStore} from "../store/search.store";
+import {useSearchStore} from "../../store/search.store";
 import {useRouter} from "vue-router";
 const router = useRouter();
 const searchStore = useSearchStore();
 
 const onClickItem = (item) => {
-  searchStore.setItem(item)
+  const id = item.url.split('/').filter(Boolean).pop();
   if (searchStore.searchType === 'movies') {
-    const id = item.url.split('/').filter(Boolean).pop();
     router.push(`/movie/${id}`)
   } else {
-    router.push('/details')
+    router.push(`/people/${id}`)
   }
 };
 

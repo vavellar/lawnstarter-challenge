@@ -6,5 +6,5 @@
 </template>
 
 <script setup>
-import HeaderPage from './components/HeaderPage.vue';
+import HeaderPage from "./ui/components/HeaderPage.vue";
 </script>

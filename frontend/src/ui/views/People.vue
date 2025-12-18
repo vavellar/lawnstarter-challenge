@@ -1,5 +1,6 @@
 <template>
-  <div class="border border-gray-300 p-4 max-w-4xl mx-auto bg-white rounded-md flex flex-col">
+  <p v-if="searchStore.loading">Loading...</p>
+  <div class="border border-gray-300 p-4 max-w-4xl min-w-1/2 mx-auto bg-white rounded-md flex flex-col" v-else-if="character?.name">
     <h1 class="font-bold text-2xl mb-4 text-gray-800">{{ character.name }}</h1>
 
     <div class="flex justify-between space-x-8">
@@ -20,7 +21,7 @@
         <h2 class="text-xl font-semibold mb-2 text-gray-700">Movies</h2>
         <hr class="border-gray-300 mb-4" />
         <ul class="text-gray-600 space-y-2">
-          <li v-for="(film, index) in searchStore.movies" :key="index">
+          <li v-for="(film, index) in character.films_details" :key="index">
             <a class="text-blue-500 underline hover:cursor-pointer" @click="router.push(`/movie/${film.id}`)">{{ film.title }}</a>
           </li>
         </ul>
@@ -42,15 +43,15 @@
 
 import {useSearchStore} from "../store/search.store";
 import {computed, onMounted, ref} from "vue";
-import {useRouter} from "vue-router";
-import axios from "axios";
+import {useRouter, useRoute} from "vue-router";
 
 const searchStore = useSearchStore();
 const router = useRouter()
-const character = computed(() => searchStore.selectedResult)
+const route = useRoute()
+const character = computed(() => searchStore.personDetails)
 
 onMounted(async () => {
-  await searchStore.fetchMovieTitles(character.value.films);
+  await searchStore.fetchPersonDetails(route.params.id);
 });
 
 </script>
