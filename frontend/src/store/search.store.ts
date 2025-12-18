@@ -1,31 +1,27 @@
 import { defineStore } from "pinia";
-import axios from "axios";
 import { ref } from "vue";
+import { moviesService } from "../services/movies.service";
+import { peopleService } from "../services/people.service";
 
 export const useSearchStore = defineStore("search", () => {
     const results = ref([]);
-    const selectedResult = ref(null);
+    const personDetails = ref(null);
     const loading = ref(false);
     const movies = ref([]);
     const movieDetails = ref(null)
     const searchType = ref("people");
+
     const performSearch = async (searchTerm: string) => {
-        if (!searchTerm.trim()) {
-            results.value = [];
-            return;
-        }
-
         loading.value = true;
-
         try {
-            const endpoint =
-                searchType.value === "people" ? "https://swapi.dev/api/people/" : "https://swapi.dev/api/films/";
-
-            const response = await axios.get(endpoint, {
-                params: { search: searchTerm },
-            });
-
-            results.value = response.data.results;
+            if (searchType.value === "movies") {
+                const data = await moviesService.fetchAllMovies(searchTerm);
+                console.log(data);
+                results.value = data.results || [];
+            } else {
+                const data = await peopleService.fetchAllPeople(searchTerm);
+                results.value = data.results || [];
+            }
         } catch (error) {
             console.error("Error fetching data:", error);
             results.value = [];
@@ -41,26 +37,39 @@ export const useSearchStore = defineStore("search", () => {
     };
 
 
-
-    const fetchMovieDetails = async (id) => {
+    const fetchMovieDetails = async (id: number) => {
+        loading.value = true
         try {
-            const response = await axios.get(`https://swapi.dev/api/films/${id}/`);
-            movieDetails.value = response.data;
+            movieDetails.value  = await moviesService.fetchMovieById(id);
         } catch (error) {
             console.error("Error fetching movie details:", error);
             movieDetails.value = null;
+        } finally {
+            loading.value = false;
         }
     };
 
-  
+    const fetchPersonDetails = async (id: number) => {
+        loading.value = true;
+        try {
+            personDetails.value  = await peopleService.fetchPersonById(id);
+        } catch (error) {
+            console.error("Error fetching person details:", error);
+            personDetails.value = null;
+        } finally {
+            loading.value = false;
+        }
+    }
+
     return {
         movies,
         results,
         movieDetails,
         searchType,
         fetchMovieDetails,
+        fetchPersonDetails,
         loading,
-        selectedResult,
+        personDetails,
         performSearch,
         clearResults,
     };
