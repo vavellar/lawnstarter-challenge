@@ -7,7 +7,7 @@ from app.events.types import QueryRecordedEvent
 import asyncio
 import time
 
-router = APIRouter()
+router = APIRouter(tags=["People"])
 @router.get("/people/details/{person_id}")
 
 async def fetch_person_details(person_id: int):

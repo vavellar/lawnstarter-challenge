@@ -17,9 +17,9 @@ app.add_middleware(
     allow_headers=["*"], 
 )
 
-app.include_router(people_router)
-app.include_router(movies_router)
-app.include_router(stats_router)
+app.include_router(people_router, prefix="/api")
+app.include_router(movies_router, prefix="/api")
+app.include_router(stats_router, prefix="/api")
 
 
 @app.on_event("startup")

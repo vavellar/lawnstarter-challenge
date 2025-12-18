@@ -7,9 +7,9 @@ import axios, {
 export class HttpClient {
   private client: AxiosInstance;
 
-  constructor(baseURL: string) {
+  constructor() {
     this.client = axios.create({
-      baseURL,
+      baseURL: import.meta.env.VITE_API_BASE_URL,
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json',

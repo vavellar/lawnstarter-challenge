@@ -7,7 +7,7 @@ from app.events.types import QueryRecordedEvent
 import asyncio
 import time
 
-router = APIRouter()
+router = APIRouter(tags=["Movies"])
 
 @router.get("/movies/details/{movie_id}")
 async def fetch_movie_details(movie_id: int):

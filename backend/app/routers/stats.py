@@ -3,7 +3,7 @@ from fastapi import APIRouter
 from app.stats.store import store
 
 
-router = APIRouter()
+router = APIRouter(tags=["Statistics"])
 
 
 @router.get("/stats")

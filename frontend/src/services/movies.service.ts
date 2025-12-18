@@ -1,4 +1,3 @@
-import { baseURL } from '../infra';
 import { HttpClient } from '../infra/http-client';
 
 export interface Film {
@@ -9,10 +8,7 @@ export interface Film {
 
 export class MoviesService extends HttpClient {
   endpoint = 'movies';
-  constructor() {
-    super(baseURL);
-  }
-
+  
   fetchMovieById(id: number): Promise<Film> {
     return this.get<Film>(`/${this.endpoint}/details/${id}`);
   }
