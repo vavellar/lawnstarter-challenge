@@ -6,9 +6,10 @@ REST API for searching Star Wars movies and characters with a query statistics s
 
 - [Overview](#overview)
 - [Technologies](#technologies)
-- [Installation](#installation)
+- [How to run](#how-to-run)
 - [API Endpoints](#api-endpoints)
 - [Statistics System](#statistics-system)
+- [Testing](#testing)
 
 ## Overview
 
@@ -27,7 +28,7 @@ REST API that consumes the [SWAPI](https://swapi.dev) and provides endpoints to 
 **Frontend:** Vue 3, TypeScript, Vite, Tailwind CSS  
 **DevOps:** Docker, Docker Compose
 
-## Installation
+## How to run
 
 ### Using Docker Compose
 
@@ -114,7 +115,36 @@ curl "http://localhost:8000/api/stats"
 ```
 
 To test faster recomputation, change `interval_seconds` from 300 to 10 in `app/stats/scheduler.py`.
+Testing
 
+### End-to-End Tests with Cypress
+
+Frontend e2e tests are located in `frontend/cypress/e2e/`:
+
+**Run tests interactively:**
+```bash
+cd frontend
+npm run cy:open
+```
+
+**Run tests in headless mode:**
+```bash
+cd frontend
+npm run cy:run
+```
+
+**Test coverage:**
+- `home.cy.ts`: Home page search functionality for movies and people
+- `movie.cy.ts`: Movie details view and error handling
+- `people.cy.ts`: People details view and navigation
+
+Tests include:
+- UI rendering and state management
+- Search functionality with mocked API responses
+- Navigation between pages
+- Error message display and handling
+
+## 
 ## Configuration
 
 **Frontend Environment Variables:**
