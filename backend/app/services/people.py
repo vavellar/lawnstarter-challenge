@@ -10,7 +10,7 @@ async def search_person(query: str) -> Optional[Dict[str, Any]]:
     response = await http_service.get(f"{endpoint}?search={query}")
     if response and response.get("results"):
         return response
-    return {"error": "No results found"}
+    return {"count": 0, "results": []}
 
 async def search_people_by_id(person_id: int) -> Optional[Dict[str, Any]]:
     response = await http_service.get(f"{endpoint}{person_id}/")

@@ -23,5 +23,5 @@ class PersonDetail(PersonBase):
 
 
 class PersonSearchResult(BaseModel):
-    count: int
-    results: List[dict]
+    count: int = 0
+    results: List[dict] = Field(default_factory=list)

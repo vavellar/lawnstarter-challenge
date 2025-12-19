@@ -30,6 +30,8 @@ async def fetch_movie_details(movie_id: int):
 
         return movie
 
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -40,6 +42,4 @@ async def fetch_movies(search: str = Query(..., description="Search term for mov
     results = await search_movie(search)
     duration_ms = (time.perf_counter() - start) * 1000.0
     await publish_event(QueryRecordedEvent.new(query=search, kind="movies", duration_ms=duration_ms))
-    if not results:
-        raise HTTPException(status_code=404, detail="No results found for the provided search term.")
     return results

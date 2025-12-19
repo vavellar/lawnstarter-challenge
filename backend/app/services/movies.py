@@ -10,7 +10,7 @@ async def search_movie(query: str) -> Optional[Dict[str, Any]]:
     response = await http_service.get(f"{endpoint}?search={query}")
     if response and response.get("results"):
         return response
-    return {"error": "No results found"}
+    return {"count": 0, "results": []}
 
 async def get_movie_by_id(movie_id: int) -> Optional[Dict[str, Any]]:
     response = await http_service.get(f"{endpoint}{movie_id}/")

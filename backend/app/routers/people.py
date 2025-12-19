@@ -14,6 +14,8 @@ router = APIRouter(tags=["People"])
 async def fetch_person_details(person_id: int):
     try:
         results = await search_people_by_id(person_id)
+        if not results:
+            raise HTTPException(status_code=404, detail=f"Person {person_id} not found.")
 
         movie_urls = results.get("films", [])
         movie_ids = [extract_id(url) for url in movie_urls]
@@ -31,6 +33,8 @@ async def fetch_person_details(person_id: int):
 
         return results
 
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -41,6 +45,4 @@ async def fetch_people(search: str = Query(..., description="Search term for peo
     results = await search_person(search)
     duration_ms = (time.perf_counter() - start) * 1000.0
     await publish_event(QueryRecordedEvent.new(query=search, kind="people", duration_ms=duration_ms))
-    if not results:
-        raise HTTPException(status_code=404, detail="No results found for the provided search term.")
     return results
