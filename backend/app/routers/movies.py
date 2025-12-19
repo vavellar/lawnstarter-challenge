@@ -12,6 +12,7 @@ router = APIRouter(tags=["Movies"])
 
 @router.get("/movies/details/{movie_id}", response_model=MovieDetail)
 async def fetch_movie_details(movie_id: int):
+    start = time.perf_counter()
     try:
         movie = await get_movie_by_id(movie_id)
         if not movie:
@@ -27,9 +28,11 @@ async def fetch_movie_details(movie_id: int):
             {"id": char_id, "name": char["name"]}
             for char_id, char in zip(character_ids, characters)
         ]
-
+        
+        duration_ms = (time.perf_counter() - start) * 1000.0
+        title = movie.get("title", "")
+        await publish_event(QueryRecordedEvent.new(query=title, kind="movie_details", duration_ms=duration_ms))
         return movie
-
     except HTTPException:
         raise
     except Exception as e:

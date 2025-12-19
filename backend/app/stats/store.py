@@ -17,6 +17,8 @@ class StatsStore:
             "avg_duration_ms": 0.0,
             "popular_hour_utc": None,
             "totals": {"count": 0, "by_kind": {}},
+            "most_viewed_people": [],
+            "most_viewed_movie": [],
         }
         self._lock = asyncio.Lock()
 
@@ -34,6 +36,8 @@ class StatsStore:
                     "avg_duration_ms": 0.0,
                     "popular_hour_utc": None,
                     "totals": {"count": 0, "by_kind": {}},
+                    "most_viewed_people": [],
+                    "most_viewed_movie": [],
                 }
                 return
 
@@ -58,12 +62,28 @@ class StatsStore:
 
             by_kind = Counter(q.kind for q in self._queries)
 
+            person_views = Counter(q.query for q in self._queries if q.kind == "person_details")
+            movie_views = Counter(q.query for q in self._queries if q.kind == "movie_details")
+            
+            most_viewed_people_list = [
+                {"name": name, "views": count}
+                for name, count in person_views.most_common(5)
+                if name
+            ]
+            most_viewed_movie_list = [
+                {"title": title, "views": count}
+                for title, count in movie_views.most_common(5)
+                if title
+            ]
+
             self._snapshot = {
                 "generated_at": datetime.utcnow().isoformat() + "Z",
                 "top_queries": top_list,
                 "avg_duration_ms": round(avg_duration, 2),
                 "popular_hour_utc": popular_hour,
                 "totals": {"count": total, "by_kind": dict(by_kind)},
+                "most_viewed_people": most_viewed_people_list,
+                "most_viewed_movie": most_viewed_movie_list,
             }
 
     async def get_snapshot(self) -> Dict[str, Any]:

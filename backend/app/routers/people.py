@@ -12,27 +12,31 @@ router = APIRouter(tags=["People"])
 @router.get("/people/details/{person_id}", response_model=PersonDetail)
 
 async def fetch_person_details(person_id: int):
+    start = time.perf_counter()
     try:
-        results = await search_people_by_id(person_id)
-        if not results:
+        people = await search_people_by_id(person_id)
+        if not people:
             raise HTTPException(status_code=404, detail=f"Person {person_id} not found.")
 
-        movie_urls = results.get("films", [])
+        movie_urls = people.get("films", [])
         movie_ids = [extract_id(url) for url in movie_urls]
 
         movie_tasks = [get_movie_by_id(movie_id) for movie_id in movie_ids]
         movies = await asyncio.gather(*movie_tasks)
 
-        results["films_details"] = [
+        people["films_details"] = [
             {
                 "id": movie_id,
                 "title": movie["title"]
             }
             for movie_id, movie in zip(movie_ids, movies)
         ]
+        
+        duration_ms = (time.perf_counter() - start) * 1000.0
+        name = people.get("name", "")
+        await publish_event(QueryRecordedEvent.new(query=name, kind="person_details", duration_ms=duration_ms))
 
-        return results
-
+        return people
     except HTTPException:
         raise
     except Exception as e:
