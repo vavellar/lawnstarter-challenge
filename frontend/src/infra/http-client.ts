@@ -19,7 +19,7 @@ export class HttpClient {
 
 
 
-  async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  protected async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
     const response: AxiosResponse<T> = await this.client.get(url, config);
     return response.data;
   }

@@ -4,7 +4,7 @@
     <Results />
   </div>
 </template>
-<script setup lang="ts">
+<script setup>
 import SearchCard from "../components/SearchCard.vue";
 import Results from "../components/Results.vue";
 import { onMounted } from "vue";
