@@ -4,11 +4,12 @@ from app.services.movies import get_movie_by_id
 from app.helpers.extract_id import extract_id
 from app.events.queue import publish_event
 from app.events.types import QueryRecordedEvent
+from app.schemas import PersonDetail, PersonSearchResult
 import asyncio
 import time
 
 router = APIRouter(tags=["People"])
-@router.get("/people/details/{person_id}")
+@router.get("/people/details/{person_id}", response_model=PersonDetail)
 
 async def fetch_person_details(person_id: int):
     try:
@@ -34,7 +35,7 @@ async def fetch_person_details(person_id: int):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/people")
+@router.get("/people", response_model=PersonSearchResult)
 async def fetch_people(search: str = Query(..., description="Search term for people")):
     start = time.perf_counter()
     results = await search_person(search)
