@@ -1,7 +1,7 @@
 import axios, {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse
+  type AxiosInstance,
+  type AxiosRequestConfig,
+  type AxiosResponse
 } from 'axios';
 
 export class HttpClient {
