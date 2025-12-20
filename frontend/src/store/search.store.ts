@@ -13,6 +13,7 @@ export const useSearchStore = defineStore("search", () => {
     const movieDetails: Ref<Movie | null> = ref(null);
     const searchType: Ref<SearchType> = ref("people");
     const error: Ref<boolean> = ref(false);
+    const searchTrigerred: Ref<boolean> = ref(false);
 
 
     watch(() => searchType.value, () => {
@@ -21,6 +22,7 @@ export const useSearchStore = defineStore("search", () => {
 
     const performSearch = async (searchTerm: string): Promise<void> => {
         loading.value = true;
+        searchTrigerred.value = true;
         try {
             if (searchType.value === "movies") {
                 const data = await moviesService.fetchAllMovies(searchTerm);
@@ -41,6 +43,7 @@ export const useSearchStore = defineStore("search", () => {
     const clearResults = (): void => {
         results.value = [];
         loading.value = false;
+        searchTrigerred.value = false;
     };
 
     const resetError = (): void => {
@@ -78,6 +81,7 @@ export const useSearchStore = defineStore("search", () => {
         error,
         movieDetails,
         searchType,
+        searchTrigerred,
         fetchMovieDetails,
         fetchPersonDetails,
         loading,

@@ -1,44 +1,46 @@
 <template>
-  <div class="p-4 w-100 h-fit bg-white rounded-md shadow-md border border-gray-300 mx-auto">
-    <h2 class="text-xl font-bold mb-4">What are you searching for?</h2>
-    <div class="flex items-center space-x-4 mb-4">
-      <label class="flex items-center space-x-2">
+  <div class="p-8 sm:w-100 w-full h-screen sm:h-fit bg-white rounded-md shadow-md border border-gray-300 mx-auto">
+    <div>
+      <h2 class="text-xl text-black mb-4">What are you searching for?</h2>
+        <div class="flex items-center space-x-4 mb-4">
+        <label class="flex items-center space-x-2">
+          <input
+              type="radio"
+              name="searchType"
+              value="people"
+              v-model="searchStore.searchType"
+              class="form-radio text-blue-500"
+          />
+          <span class="font-medium text-lg">People</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input
+              type="radio"
+              name="searchType"
+              value="movies"
+              v-model="searchStore.searchType"
+              class="form-radio text-blue-500"
+          />
+          <span class="font-medium text-lg">Movies</span>
+        </label>
+      </div>
+      <div class="flex items-center justify-between  mb-4">
         <input
-            type="radio"
-            name="searchType"
-            value="people"
-            v-model="searchStore.searchType"
-            class="form-radio text-blue-500"
+            type="text"
+            class="border border-gray-300 rounded-md w-full py-2 px-3 text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            :placeholder="placeholderText"
+            v-model="searchTerm"
         />
-        <span class="font-medium text-lg">People</span>
-      </label>
-      <label class="flex items-center space-x-2">
-        <input
-            type="radio"
-            name="searchType"
-            value="movies"
-            v-model="searchStore.searchType"
-            class="form-radio text-blue-500"
-        />
-        <span class="font-medium text-lg">Movies</span>
-      </label>
-    </div>
-    <div class="flex items-center mb-4">
-      <input
-          type="text"
-          class="border border-gray-300 rounded-md w-full py-2 px-3 text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          :placeholder="placeholderText"
-          v-model="searchTerm"
-      />
-    </div>
-    <button
-        :disabled="!searchTerm.trim()"
-        @click="onSearch"
-        class="text-gray-700 py-2 px-4 rounded-xl w-full font-bold"
-        :class="{ 'cursor-not-allowed opacity-50 bg-gray-300': !searchTerm.trim(), 'bg-[#0ab463] hover:cursor-pointer text-white': searchTerm.trim() }"
-    >
-      {{ searchStore.loading ? "SEARCHING..." : "SEARCH" }}
-    </button>
+      </div>
+    </div>        
+      <button
+          :disabled="!searchTerm.trim()"
+          @click="onSearch"
+          class="text-gray-700 py-2 px-4 rounded-xl w-full font-bold"
+          :class="{ 'cursor-not-allowed opacity-50 bg-gray-300': !searchTerm.trim(), 'bg-[#0ab463] hover:cursor-pointer text-white': searchTerm.trim() }"
+      >
+        {{ searchStore.loading ? "SEARCHING..." : "SEARCH" }}
+      </button>
   </div>
 </template>
 

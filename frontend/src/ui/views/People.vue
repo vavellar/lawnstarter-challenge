@@ -1,10 +1,10 @@
 <template>
   <p v-if="searchStore.loading">Loading...</p>
-  <div class="border border-gray-300 p-4 max-w-4xl min-w-1/2 mx-auto bg-white rounded-md flex flex-col" v-else-if="character?.name">
+  <div class="border border-gray-300 w-full p-4 min-w-1/2 max-w-4xl mx-auto bg-white rounded-md flex flex-col" v-else-if="character?.name">
     <h1 class="font-bold text-2xl mb-4 text-gray-800">{{ character.name }}</h1>
 
-    <div class="flex justify-between space-x-8">
-      <div class="w-1/2">
+    <div class="grid md:grid-cols-2 grid-rows-1 gap-x-[10px] gap-y-0 grid-cols-1"">
+      <div>
         <h2 class="text-xl font-semibold mb-2 text-gray-700">Details</h2>
         <hr class="border-gray-300 mb-4" />
         <ul class="text-gray-600 space-y-2">
@@ -17,7 +17,7 @@
         </ul>
       </div>
 
-      <div class="w-1/2">
+      <div>
         <h2 class="text-xl font-semibold mb-2 text-gray-700">Movies</h2>
         <hr class="border-gray-300 mb-4" />
         <ul class="text-gray-600 space-y-2">

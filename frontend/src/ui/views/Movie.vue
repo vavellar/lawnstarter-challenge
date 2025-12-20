@@ -3,8 +3,8 @@
   <div class="border border-gray-300 p-4 max-w-4xl min-w-1/2 mx-auto bg-white rounded-md flex flex-col" v-else-if="movie?.title">
     <h1 class="font-bold text-2xl mb-4 text-gray-800">{{ movie.title }}</h1>
 
-    <div class="flex justify-between space-x-8">
-      <div class="w-1/2 y">
+    <div class="grid md:grid-cols-2 grid-rows-1 gap-x-10 gap-y-0 grid-cols-1">
+      <div class="">
         <h2 class="text-xl font-semibold mb-2 text-gray-700">Opening Crawl </h2>
         <hr class="border-gray-300 mb-4" />
         <div class="text-gray-600 space-y-2 py-4">
@@ -13,7 +13,7 @@
           </p>
         </div>
       </div>
-      <div class="w-1/2">
+      <div>
         <h2 class="text-xl font-semibold mb-2 text-gray-700">Characters</h2>
         <hr class="border-gray-300 mb-4" />
         <ul class="text-gray-600 flex flex-wrap">
