@@ -1,5 +1,8 @@
 <template>
-  <div class="border border-gray-300 p-8 sm:w-150 w-full mx-auto bg-white rounded-md flex flex-col justify-between h-fit">
+  <div 
+    class="border border-gray-300 p-8 sm:w-150 w-full mx-auto bg-white rounded-md flex flex-col justify-between sm:h-fit"
+    :class="[searchStore.results.length === 10 ? 'h-full' : 'h-screen']"
+  >
    <div>
      <h2 class="text-xl font-bold mb-2">Results</h2>
     <hr class="border-gray-300 mb-4" />
@@ -12,7 +15,7 @@
          <p>There are zero matches.</p>
          <p>Use the form to search for People or Movies.</p>
       </div>
-      <div v-else class="max-h-[400px] h-auto overflow-auto">
+      <div v-else class="md:max-h-100 h-auto overflow-auto">
         <ul class="w-full">
           <li
               v-for="(result, index) in searchStore.results"
@@ -29,7 +32,8 @@
           </li>
         </ul>
       </div>
-   </div>
+    </div>
+    </div>
     <button
           v-if="isMobile"
           @click="searchStore.clearResults()"
@@ -37,7 +41,6 @@
       >
           BACK TO SEARCH
       </button>
-    </div>
   </div>
 </template>
 

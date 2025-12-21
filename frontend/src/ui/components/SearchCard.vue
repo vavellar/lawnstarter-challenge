@@ -1,5 +1,5 @@
 <template>
-  <div class="p-8 sm:w-100 w-full h-screen sm:h-fit bg-white rounded-md shadow-md border border-gray-300 mx-auto">
+  <div class="p-8 sm:w-100 w-full h-screen sm:h-fit bg-white rounded-md shadow-md border border-gray-300 mx-auto flex flex-col justify-between">
     <div>
       <h2 class="text-xl text-black mb-4">What are you searching for?</h2>
         <div class="flex items-center space-x-4 mb-4">
