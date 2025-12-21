@@ -1,5 +1,5 @@
 <template>
-  <div class="grid sm:grid-cols-1 md:grid-cols-[0.75fr_1fr] grid-rows-1 gap-x-5 gap-y-0 w-full max-w-5xl mx-auto">
+  <div class="home-grid">
     <SearchCard v-if="showSearchCard" />
     <Results v-if="showResults" />
   </div>
@@ -22,3 +22,10 @@ onMounted(() => {
 });
 
 </script>
+
+<style>
+@import "tailwindcss";
+.home-grid {
+  @apply grid sm:grid-cols-1 md:grid-cols-[0.75fr_1fr] grid-rows-1 gap-x-5 gap-y-0 w-full max-w-5xl mx-auto;
+}
+</style>

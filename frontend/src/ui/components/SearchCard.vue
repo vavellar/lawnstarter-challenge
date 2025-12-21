@@ -1,33 +1,33 @@
 <template>
-  <div class="p-8 sm:w-100 w-full h-[94vh] sm:h-fit bg-white rounded-md shadow-md border border-gray-300 mx-auto flex flex-col justify-between">
+  <div class="search-card">
     <div>
-      <h2 class="text-xl text-black mb-4">What are you searching for?</h2>
-        <div class="flex items-center space-x-4 mb-4">
-        <label class="flex items-center space-x-2">
+      <h2 class="search-card-title">What are you searching for?</h2>
+        <div class="search-card-options">
+        <label class="search-card-option">
           <input
               type="radio"
               name="searchType"
               value="people"
               v-model="searchStore.searchType"
-              class="form-radio text-blue-500"
+              class="search-card-radio"
           />
-          <span class="font-medium text-lg">People</span>
+          <span class="search-card-label">People</span>
         </label>
-        <label class="flex items-center space-x-2">
+        <label class="search-card-option">
           <input
               type="radio"
               name="searchType"
               value="movies"
               v-model="searchStore.searchType"
-              class="form-radio text-blue-500"
+              class="search-card-radio"
           />
-          <span class="font-medium text-lg">Movies</span>
+          <span class="search-card-label">Movies</span>
         </label>
       </div>
-      <div class="flex items-center justify-between  mb-4">
+      <div class="search-card-input-wrapper">
         <input
             type="text"
-            class="border border-gray-300 rounded-md w-full py-2 px-3 text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="search-card-input"
             :placeholder="placeholderText"
             v-model="searchTerm"
         />
@@ -68,4 +68,40 @@ const onSearch = () => {
 };
 
 </script>
+
+
+<style>
+@import "tailwindcss";
+.search-card {
+  @apply p-8 sm:w-100 w-full h-[94vh] sm:h-fit bg-white rounded-md shadow-md border border-gray-300 mx-auto flex flex-col justify-between;
+}
+
+.search-card-title {
+  @apply text-xl text-black mb-4;
+}
+
+.search-card-options {
+  @apply flex items-center space-x-4 mb-4;
+}
+
+.search-card-option {
+  @apply flex items-center space-x-2;
+}
+
+.search-card-radio {
+  @apply  text-blue-500;
+}
+
+.search-card-label {
+  @apply font-medium text-lg;
+}
+
+.search-card-input-wrapper {
+  @apply flex items-center justify-between mb-4;
+}
+
+.search-card-input {
+  @apply border border-gray-300 rounded-md w-full py-2 px-3 text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+</style>
 
