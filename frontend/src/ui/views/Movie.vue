@@ -60,7 +60,7 @@ onMounted(async () => {
 <style>
 @import "tailwindcss";
 .movie-container {
-  @apply border border-gray-300 p-4 max-w-4xl min-w-1/2 mx-auto bg-white rounded-md flex flex-col justify-between h-[94vh] sm:h-fit w-full;
+  @apply border border-gray-300 p-4 max-w-4xl min-w-1/2 mx-auto bg-white rounded-md flex flex-col justify-between h-full sm:h-fit w-full;
 }
 
 .movie-title {
