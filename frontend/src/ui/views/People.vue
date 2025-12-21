@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div class="mt-4">
+    <div class="mt-32">
       <CustomButton 
           @click="router.push('/')" 
           :text="'BACK TO SEARCH'" 
