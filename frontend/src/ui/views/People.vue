@@ -1,6 +1,6 @@
 <template>
   <p v-if="searchStore.loading">Loading...</p>
-  <div class="border border-gray-300 w-full p-4 min-w-1/2 max-w-4xl mx-auto bg-white rounded-md flex flex-col justify-between h-screen sm:h-fit" v-else-if="character?.name">
+  <div class="border border-gray-300 w-full p-4 min-w-1/2 max-w-4xl mx-auto bg-white rounded-md flex flex-col justify-between h-[94vh] sm:h-fit" v-else-if="character?.name">
     <div>
       <h1 class="font-bold text-2xl mb-4 text-gray-800">{{ character.name }}</h1>
 
@@ -31,12 +31,11 @@
     </div>
 
     <div class="mt-4">
-      <button
-          @click="router.push('/')"
-          class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md w-full md:w-fit"
-      >
-        BACK TO SEARCH
-      </button>
+      <CustomButton 
+          @click="router.push('/')" 
+          :text="'BACK TO SEARCH'" 
+          :full="isMobile"
+      />
     </div>
   </div>
 </template>
@@ -46,6 +45,9 @@
 import {useSearchStore} from "../../store/search.store";
 import {computed, onMounted} from "vue";
 import {useRouter, useRoute} from "vue-router";
+import CustomButton from "../components/CustomButton.vue";
+import { useResponsive } from "../../composables/useResponsive";
+const { isMobile } = useResponsive();
 
 const searchStore = useSearchStore();
 const router = useRouter()

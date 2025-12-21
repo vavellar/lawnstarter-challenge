@@ -1,5 +1,5 @@
 <template>
-  <div class="p-8 sm:w-100 w-full h-screen sm:h-fit bg-white rounded-md shadow-md border border-gray-300 mx-auto flex flex-col justify-between">
+  <div class="p-8 sm:w-100 w-full h-[94vh] sm:h-fit bg-white rounded-md shadow-md border border-gray-300 mx-auto flex flex-col justify-between">
     <div>
       <h2 class="text-xl text-black mb-4">What are you searching for?</h2>
         <div class="flex items-center space-x-4 mb-4">
@@ -32,21 +32,20 @@
             v-model="searchTerm"
         />
       </div>
-    </div>        
-      <button
-          :disabled="!searchTerm.trim()"
-          @click="onSearch"
-          class="text-gray-700 py-2 px-4 rounded-xl w-full font-bold"
-          :class="{ 'cursor-not-allowed opacity-50 bg-gray-300': !searchTerm.trim(), 'bg-[#0ab463] hover:cursor-pointer text-white': searchTerm.trim() }"
-      >
-        {{ searchStore.loading ? "SEARCHING..." : "SEARCH" }}
-      </button>
+    </div>    
+    <CustomButton 
+      :disabled="!searchTerm.trim()"
+      @click="onSearch"
+      full
+      :text="searchStore.loading ? 'SEARCHING...' : 'SEARCH'" 
+    />    
   </div>
 </template>
 
 <script setup>
 import { ref, computed, watch } from "vue";
 import {useSearchStore} from "../../store/search.store";
+import CustomButton from "./CustomButton.vue";
 const searchStore = useSearchStore();
 
 const searchTerm = ref("");
