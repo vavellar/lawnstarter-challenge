@@ -81,30 +81,6 @@ Returns query statistics.
 curl "http://localhost:8000/api/stats"
 ```
 
-Response includes:
-- `generated_at`: Last computation timestamp
-- `top_queries`: Top 5 queries with counts and percentages
-- `avg_duration_ms`: Average query duration
-- `popular_hour_utc`: Most popular hour
-- `totals`: Query counts by type
-
-## Statistics System
-
-The system uses an event-driven architecture with asynchronous queue processing:
-
-1. **Query Recording**: When queries are made, events are published to the queue
-2. **Worker Processing**: Background worker processes events and stores data
-3. **Scheduled Recomputation**: Every 5 minutes, statistics are recalculated
-4. **Instant Access**: `/stats` endpoint returns the latest snapshot
-
-### Components
-
-- **Event Queue** (`app/events/queue.py`): Manages asynchronous events
-- **Event Types** (`app/events/types.py`): Defines QueryRecordedEvent and RecomputeStatsEvent
-- **Stats Worker** (`app/stats/worker.py`): Processes queue events
-- **Stats Scheduler** (`app/stats/scheduler.py`): Triggers recomputation every 5 minutes
-- **Stats Store** (`app/stats/store.py`): Stores and computes statistics
-
 ### Testing
 
 Make test queries:
@@ -134,17 +110,10 @@ npm run cy:run
 ```
 
 **Test coverage:**
-- `home.cy.ts`: Home page search functionality for movies and people
-- `movie.cy.ts`: Movie details view and error handling
-- `people.cy.ts`: People details view and navigation
+- `home.cy.ts`
+- `movie.cy.ts`
+- `people.cy.ts`
 
-Tests include:
-- UI rendering and state management
-- Search functionality with mocked API responses
-- Navigation between pages
-- Error message display and handling
-
-## 
 ## Configuration
 
 **Frontend Environment Variables:**
